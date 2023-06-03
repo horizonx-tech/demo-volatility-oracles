@@ -1,0 +1,63 @@
+type CandidObservation = record {
+  tick_cumulative : int64;
+  initialized : bool;
+  block_timestamp : nat32;
+  liquidity_cumulative : text;
+};
+type CandidPrice = record {
+  observation_index : nat16;
+  sqrt_price_x96 : text;
+  block_timestamp : nat32;
+};
+type CandidSlot0 = record {
+  observation_index : nat16;
+  sqrt_price_x96 : text;
+  observation_cardinality : nat16;
+  observation_cardinality_next : nat16;
+  fee_protocol : nat8;
+  tick : int32;
+  unlocked : bool;
+};
+type HttpHeader = record { value : text; name : text };
+type HttpResponse = record {
+  status : nat;
+  body : vec nat8;
+  headers : vec HttpHeader;
+};
+type Metrics = record { balance : nat };
+type Result = variant { Ok; Err : text };
+type Result_1 = variant { Ok : nat64; Err : text };
+type Result_2 = variant { Ok : CandidObservation; Err : text };
+type Result_3 = variant { Ok : CandidPrice; Err : text };
+type Result_4 = variant { Ok : CandidSlot0; Err : text };
+type Result_5 = variant { Ok : record { CandidPrice; opt nat32 }; Err : text };
+type Result_6 = variant { Ok : vec CandidPrice; Err : text };
+type TransformArgs = record { context : vec nat8; response : HttpResponse };
+service : {
+  bulk_save_prices : (vec nat64, opt nat64, opt nat64) -> (Result);
+  debug_clear_prices : () -> ();
+  debug_fetch_block_number : () -> (Result_1);
+  debug_fetch_observation : (text, nat16, opt nat64, opt nat64, opt nat64) -> (
+      Result_2,
+    );
+  debug_fetch_price : (opt text, opt nat64, opt nat64, opt nat64) -> (Result_3);
+  debug_fetch_slot0 : (text, opt nat64, opt nat64, opt nat64) -> (Result_4);
+  debug_get_from_past_synced_timestamp : () -> (nat32) query;
+  debug_get_from_synced_timestamp : () -> (nat32) query;
+  debug_get_pool_address : () -> (text) query;
+  debug_get_price : (nat64) -> (opt CandidPrice) query;
+  debug_get_prices : () -> (vec CandidPrice) query;
+  debug_get_prices_length : () -> (nat64) query;
+  debug_get_rpc_url : () -> (text) query;
+  debug_last_price_timestamp_by_indexed_time_unit : () -> (nat32) query;
+  debug_save_prices : (opt nat64, opt nat64, opt nat64) -> (Result_5);
+  debug_stop_periodic_save_prices : () -> () query;
+  get_filtered_price_indexes : (bool) -> (vec record { nat32; nat64 }) query;
+  get_price_indexes : (bool) -> (vec record { nat32; nat64 }) query;
+  get_prices : (opt nat32, opt nat32) -> (Result_6) query;
+  metric : () -> (Metrics) query;
+  metrics : (nat64) -> (vec record { nat64; Metrics }) query;
+  set_task : (opt nat32, opt nat64, opt nat64) -> ();
+  setup : (text, text, opt nat32) -> ();
+  transform : (TransformArgs) -> (HttpResponse) query;
+}

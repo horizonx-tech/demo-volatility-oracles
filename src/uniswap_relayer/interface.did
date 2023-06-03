@@ -1,0 +1,96 @@
+type CallCanisterArgs = record {
+  back_terms : opt nat8;
+  time_unit : nat32;
+  precision : nat8;
+  token1_decimals : nat8;
+  data_resource_canister_id : text;
+  token0_decimals : nat8;
+};
+type HttpHeader = record { value : text; name : text };
+type HttpResponse = record {
+  status : nat;
+  body : vec nat8;
+  headers : vec HttpHeader;
+};
+type Metrics = record { balance : nat };
+type Result = variant { Ok : text; Err : text };
+type TransformArgs = record { context : vec nat8; response : HttpResponse };
+service : {
+  debug_call_balance_of_native : () -> (Result);
+  debug_call_get_last_4week_realized_volatility : (
+      text,
+      text,
+      nat8,
+      nat8,
+      nat8,
+      opt nat8,
+    ) -> (Result);
+  debug_call_get_last_day_realized_volatility : (
+      text,
+      text,
+      nat8,
+      nat8,
+      nat8,
+      opt nat8,
+    ) -> (Result);
+  debug_call_get_period_range_realized_volatility : (
+      text,
+      text,
+      nat8,
+      nat8,
+      nat8,
+      nat32,
+      opt nat8,
+    ) -> (Result);
+  debug_call_transfer_native : (text, nat64) -> (Result);
+  debug_get_call_canister_args : () -> (CallCanisterArgs) query;
+  debug_get_chain_id : () -> (nat64) query;
+  debug_get_key_name : () -> (text) query;
+  debug_get_oracle_address : () -> (text) query;
+  debug_get_rpc_url : () -> (text) query;
+  debug_get_target_canister : () -> (text) query;
+  debug_set_call_canister_args : (
+      text,
+      nat8,
+      nat8,
+      nat8,
+      nat32,
+      opt nat8,
+    ) -> ();
+  debug_set_chain_id : (nat64) -> ();
+  debug_set_ecdsa_key_for_local : () -> ();
+  debug_set_ecdsa_key_for_prod : () -> ();
+  debug_set_ecdsa_key_for_test : () -> ();
+  debug_set_oracle_address : (text) -> ();
+  debug_set_rpc_url : (text) -> ();
+  debug_set_target_canister : (text) -> ();
+  debug_stop_task : () -> ();
+  debug_sync_state : (
+      text,
+      text,
+      nat8,
+      nat8,
+      nat8,
+      nat32,
+      opt nat8,
+      opt nat8,
+    ) -> (Result);
+  debug_sync_state_internal : (nat, opt nat, opt nat, opt nat) -> (Result);
+  get_ethereum_address : () -> (text);
+  metric : () -> (Metrics) query;
+  metrics : (nat64) -> (vec record { nat64; Metrics }) query;
+  set_task : (opt nat32, opt nat32) -> ();
+  setup : (
+      text,
+      nat64,
+      text,
+      text,
+      text,
+      nat8,
+      nat8,
+      nat8,
+      nat32,
+      opt nat8,
+    ) -> ();
+  transform : (TransformArgs) -> (HttpResponse) query;
+}

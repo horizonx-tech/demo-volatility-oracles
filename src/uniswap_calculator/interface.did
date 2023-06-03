@@ -1,0 +1,72 @@
+type CandidPrice = record {
+  observation_index : nat16;
+  sqrt_price_x96 : text;
+  block_timestamp : nat32;
+};
+type CandidTimestamps = record { to : nat32; from : nat32 };
+type Metrics = record { balance : nat };
+type Result = variant { Ok : vec text; Err : text };
+type Result_1 = variant { Ok : text; Err : text };
+type Result_2 = variant { Ok : vec CandidPrice; Err : text };
+service : {
+  debug_calculate_exchange_rates_for_prices : (
+      text,
+      nat8,
+      nat8,
+      nat8,
+      opt nat32,
+      opt nat32,
+    ) -> (Result);
+  debug_calculate_realized_volatility_by_setted_prices : (vec text) -> (
+      Result_1,
+    );
+  debug_call_prices : (text, opt nat32, opt nat32) -> (Result_2);
+  debug_get_last_10minites_realized_volatility : (
+      text,
+      nat8,
+      nat8,
+      nat8,
+      opt nat8,
+    ) -> (Result_1);
+  debug_get_last_30minites_realized_volatility : (
+      text,
+      nat8,
+      nat8,
+      nat8,
+      opt nat8,
+    ) -> (Result_1);
+  debug_get_last_5minites_realized_volatility : (
+      text,
+      nat8,
+      nat8,
+      nat8,
+      opt nat8,
+    ) -> (Result_1);
+  debug_last_10min : (opt nat8) -> (CandidTimestamps) query;
+  debug_last_1day : (opt nat8) -> (CandidTimestamps) query;
+  debug_last_30min : (opt nat8) -> (CandidTimestamps) query;
+  debug_last_4week : (opt nat8) -> (CandidTimestamps) query;
+  debug_last_5min : (opt nat8) -> (CandidTimestamps) query;
+  get_last_4week_realized_volatility : (text, nat8, nat8, nat8, opt nat8) -> (
+      Result_1,
+    );
+  get_last_day_realized_volatility : (text, nat8, nat8, nat8, opt nat8) -> (
+      Result_1,
+    );
+  get_last_hour_realized_volatility : (text, nat8, nat8, nat8, opt nat8) -> (
+      Result_1,
+    );
+  get_period_range_realized_volatility : (
+      text,
+      nat8,
+      nat8,
+      nat8,
+      nat32,
+      opt nat8,
+    ) -> (Result_1);
+  get_realized_volatility : (text, nat8, nat8, nat8, opt nat32, opt nat32) -> (
+      Result_1,
+    );
+  metric : () -> (Metrics) query;
+  metrics : (nat64) -> (vec record { nat64; Metrics }) query;
+}

@@ -1,0 +1,23 @@
+{
+  "calculator": {
+    "mainnet": "w7um6-haaaa-aaaal-qb2ga-cai"
+  },
+  "relayer": {
+    "mainnet": "wyvkk-kyaaa-aaaal-qb2gq-cai"
+  },
+  "relayer_2": {
+    "mainnet": "ulkjk-caaaa-aaaal-qb2ia-cai"
+  },
+  "rv_snapshot": {
+    "mainnet": "q56rv-lyaaa-aaaal-qb2qq-cai"
+  },
+  "rv_snapshot_2": {
+    "mainnet": "qu52j-5qaaa-aaaal-qb2ra-cai"
+  },
+  "snapshotter": {
+    "mainnet": "wrwbw-4qaaa-aaaal-qb2ha-cai"
+  },
+  "snapshotter_2": {
+    "mainnet": "wwxhc-riaaa-aaaal-qb2hq-cai"
+  }
+}

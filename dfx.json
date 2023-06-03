@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "canisters": {
+    "snapshotter": {
+      "type": "rust",
+      "package": "uniswap_snapshotter",
+      "candid": "src/uniswap_snapshotter/interface.did"
+    },
+    "snapshotter_2": {
+      "type": "rust",
+      "package": "uniswap_snapshotter",
+      "candid": "src/uniswap_snapshotter/interface.did"
+    },
+    "calculator": {
+      "type": "rust",
+      "package": "uniswap_calculator",
+      "candid": "src/uniswap_calculator/interface.did"
+    },
+    "relayer": {
+      "type": "rust",
+      "package": "uniswap_relayer",
+      "candid": "src/uniswap_relayer/interface.did"
+    },
+    "relayer_2": {
+      "type": "rust",
+      "package": "uniswap_relayer",
+      "candid": "src/uniswap_relayer/interface.did"
+    },
+    "rv_snapshot": {
+      "type": "rust",
+      "package": "snapshot_indexer",
+      "candid": "src/snapshot_indexer/interface.did"
+    },
+    "rv_snapshot_2": {
+      "type": "rust",
+      "package": "snapshot_indexer",
+      "candid": "src/snapshot_indexer/interface.did"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "",
+      "args": ""
+    }
+  },
+  "networks": {
+    "mainnet": {
+      "providers": ["https://ic0.app"],
+      "wallet": "5naws-oiaaa-aaaal-qbxuq-cai"
+    }
+  },
+  "output_env_file": ".env"
+}

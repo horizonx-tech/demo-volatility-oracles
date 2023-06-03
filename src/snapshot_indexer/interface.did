@@ -1,0 +1,34 @@
+type CallCanisterArgs = record {
+  back_terms : opt nat8;
+  time_unit : nat32;
+  precision : nat8;
+  token1_decimals : nat8;
+  data_resource_canister_id : text;
+  token0_decimals : nat8;
+};
+type Metrics = record { balance : nat };
+type Result = variant { Ok : text; Err : text };
+type SnapshotDataStruct = record { key : nat64; value : nat };
+service : {
+  debug_call_get_period_range_realized_volatility : (
+      text,
+      text,
+      nat8,
+      nat8,
+      nat8,
+      nat32,
+      opt nat8,
+    ) -> (Result);
+  debug_clean_snapshot_data : () -> ();
+  debug_stop_task : () -> ();
+  get_all_snapshot_data : () -> (vec SnapshotDataStruct) query;
+  get_call_canister_args : () -> (CallCanisterArgs) query;
+  get_snapshot_data : (nat64) -> (nat) query;
+  get_snapshot_data_len : () -> (nat64) query;
+  get_target_canister : () -> (principal) query;
+  get_task_interval_secs : () -> (nat32) query;
+  metric : () -> (Metrics) query;
+  metrics : (nat64) -> (vec record { nat64; Metrics }) query;
+  set_task : (opt nat32, opt nat32) -> ();
+  setup : (text, text, nat8, nat8, nat8, nat32, opt nat8) -> ();
+}
