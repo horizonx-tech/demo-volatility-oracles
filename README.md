@@ -68,7 +68,7 @@ RVOL_{t} = \sqrt{N_{1}} \times \sqrt{\frac {\sum_{i=1}^N r_{t,i}^2} N}
 r_{t,i} = 100 \times ln(P_{t,i}/P_{t,i-1})
 ```
 
-## More informations
+## More information
 
 - About Chainsight
   - [Introduction - Chainsight Network](https://docs.chainsight.network/)
